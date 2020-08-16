@@ -1,0 +1,19 @@
+/* 404 */
+.page-404 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+.page-404 h2 {
+  color: var(--error);
+}
+.page-404 img {
+  max-width: 350px;
+  margin: 10px;
+}
+.page-404 a {
+  text-decoration: none !important;
+  color: var(--secondary);
+}

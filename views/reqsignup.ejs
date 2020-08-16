@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <div class="registration">
+      <div class="form-name">
+        <h2>Create an iCrowdTask account</h2>
+      </div>
+      <form
+        class="form-body"
+        action="/signup"
+        method="POST"
+        onsubmit="return(validateSignUp(event))"
+      >
+        <div class="warning">
+          <i>
+            <small><span class="warning-span">*</span>require</small>
+          </i>
+        </div>
+        <div class="incorrect" style="<%= visible %>">
+          <div class="message"><%= message %></div>
+          <div class="symbol">
+            <svg viewBox="0 0 20 20" fill="currentColor">
+              <path
+                fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+        </div>
+        <div class="country" id="country-list">
+          <label for="country"
+            >Country of residence<span class="warning-span">*</span></label
+          >
+          <select name="country" id="country"></select>
+        </div>
+        <div class="name">
+          <div class="first-name">
+            <label for="firstName"
+              >First name<span class="warning-span">*</span></label
+            >
+            <input type="text" name="firstName" id="first-name" />
+          </div>
+          <div class="last-name">
+            <label for="lastName"
+              >Last name<span class="warning-span">*</span></label
+            >
+            <input type="text" name="lastName" id="last-name" />
+          </div>
+        </div>
+        <div class="email">
+          <label for="email">Email<span class="warning-span">*</span></label>
+          <input type="email" name="email" id="email" />
+        </div>
+        <div class="password">
+          <label for="password"
+            >Password<span class="warning-span">*</span></label
+          >
+          <input type="password" name="password" id="password" />
+        </div>
+        <div class="re-password">
+          <label for="rePassword"
+            >Confirm password<span class="warning-span">*</span></label
+          >
+          <input type="password" name="rePassword" id="re-password" />
+        </div>
+        <div class="address">
+          <label for="address"
+            >Address<span class="warning-span">*</span></label
+          >
+          <input type="text" name="address1" id="address-1" />
+          <input type="text" name="address2" id="address-2" />
+        </div>
+        <div class="city">
+          <div class="city-name">
+            <label for="city">City<span class="warning-span">*</span></label>
+            <input type="text" name="city" id="city" />
+          </div>
+          <div class="state">
+            <label for="state"
+              >State, Province or Region<span class="warning-span"
+                >*</span
+              ></label
+            >
+            <input type="text" name="state" id="state" />
+          </div>
+        </div>
+        <div class="zip-code">
+          <label for="zipCode">ZIP / Postal code</label>
+          <input type="text" name="zipCode" id="zip-code" />
+        </div>
+        <div class="phone-number">
+          <label for="phoneNumber">Mobile phone number</label>
+          <input type="text" name="phoneNumber" id="phone-number" />
+        </div>
+        <div class="submit">
+          <button type="submit">Create Account</button>
+        </div>
+      </form>
+      <div class="login-page">
+        <a href="/login">Log In</a>
+      </div>
+    </div>
+  </body>
+  <script src="/js/validator.min.js"></script>
+  <script src="/js/country.js"></script>
+  <script src="/js/validationSignUp.js"></script>
+  <script>
+    let svg = document.querySelector(".registration svg");
+    let inputs = document.querySelectorAll(".registration input");
+
+    svg.addEventListener("click", () => {
+      incorrectBadge.style.visibility = "hidden";
+    });
+    inputs.forEach((input) => {
+      input.addEventListener("change", () => {
+        incorrectBadge.style.visibility = "hidden";
+      });
+    });
+  </script>
+</html>
