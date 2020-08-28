@@ -26,16 +26,10 @@ const signup_post = (req, res) => {
         // Send Welcome email
         SendEmail.SendGrid(req.body.email);
 
-        // Hash password and save user's info in database
-        hashPassword(userInfo.password, res)
-          .then((hashedPassword) => {
-            userInfo.password = hashedPassword;
-            const user = new User(userInfo);
-            user
-              .save()
-              .then(() => res.redirect("/login"))
-              .catch((err) => console.log(err));
-          })
+        const user = new User(userInfo);
+        user
+          .save()
+          .then(() => res.redirect("/login"))
           .catch((err) => console.log(err));
       } else {
         res.render("reqsignup", {

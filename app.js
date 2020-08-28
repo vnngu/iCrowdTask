@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const PORT = process.env.PORT || 3000;
 const authRoutes = require("./routes/authRoutes");
+const workerRoutes = require("./routes/workerRoutes");
 
 // Express app
 const app = express();
@@ -17,13 +18,18 @@ const dbURI =
 
 // Listen to requests
 mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => app.listen(PORT))
   .catch((err) => console.log(err));
 
 // Middleware and Static Files
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Routes
 app.get("/", (req, res) => {
@@ -32,6 +38,10 @@ app.get("/", (req, res) => {
 
 // Auth Routes
 app.use("/", authRoutes);
+
+// Worker Routes
+app.use("/workers", workerRoutes);
+
 // Request Task
 app.get("/task", (req, res) => {
   res.render("reqtask");
