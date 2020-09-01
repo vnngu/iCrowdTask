@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -5,6 +6,16 @@ const path = require("path");
 const PORT = process.env.PORT || 3000;
 const authRoutes = require("./routes/authRoutes");
 const workerRoutes = require("./routes/workerRoutes");
+const googleAuthRoutes = require("./routes/googleAuthRoutes");
+const passport = require("passport");
+const initailizePassport = require("./functions/passportConfig");
+const initializedGooglePassport = require("./functions/googleLogin");
+const flash = require("express-flash");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const { isUserAuthenticated } = require("./functions/checkAuthentication");
+initailizePassport(passport);
+initializedGooglePassport(passport);
 
 // Express app
 const app = express();
@@ -30,27 +41,46 @@ mongoose
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+app.use(flash());
+app.use(
+  session({
+    secret: process.env.SESSION_SECERT_KEY,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      maxAge: 3600 * 1000,
+    },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
-app.get("/", (req, res) => {
-  res.redirect("/login");
+// Home
+app.get("/", isUserAuthenticated, (req, res) => {
+  res.render("home", { name: req.user.firstName });
 });
 
 // Auth Routes
-app.use("/", authRoutes);
+app.use(authRoutes);
+// Google Auth
+app.use(googleAuthRoutes);
 
 // Worker Routes
 app.use("/workers", workerRoutes);
 
 // Request Task
-app.get("/task", (req, res) => {
+app.get("/task", isUserAuthenticated, (req, res) => {
   res.render("reqtask");
 });
 
 // Success
-app.get("/success", (req, res) => {
-  res.render("success");
+app.get("/success", isUserAuthenticated, (req, res) => {
+  res.render("success", { name: req.user.firstName });
 });
+
 // Server Error
 app.get("/server-error", (req, res) => {
   res.render("errors/500");

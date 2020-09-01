@@ -64,9 +64,24 @@ const login_post = (req, res) => {
     .catch((err) => console.log(err));
 };
 
+const log_out_get = (req, res) => {
+  req.logout();
+  res.redirect("/login");
+};
+
+const save_session = (req, res) => {
+  const cookies = req.cookies;
+  if (cookies.isSave === "false") {
+    req.logout();
+    res.redirect("/login");
+  }
+};
+
 module.exports = {
   signup_get,
   signup_post,
   login_get,
   login_post,
+  log_out_get,
+  save_session,
 };

@@ -36,9 +36,12 @@ const get_workers = (req, res) => {
 */
 const add_workers = async (req, res) => {
   const { users } = req.body;
-  User.insertMany(users)
-    .then((users) => res.json({ users, status: "success" }))
-    .catch((err) => res.json({ users: [], status: err.message }));
+  for await (const user of users) {
+    await User.create(user)
+      .then((user) => console.log("Success"))
+      .catch((err) => res.json({ user: "", status: err.message }));
+  }
+  await User.find({}).then((users) => res.json({ users, status: "success" }));
 };
 
 /*

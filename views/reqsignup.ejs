@@ -110,13 +110,15 @@
     let svg = document.querySelector(".registration svg");
     let inputs = document.querySelectorAll(".registration input");
 
-    svg.addEventListener("click", () => {
-      incorrectBadge.style.visibility = "hidden";
-    });
-    inputs.forEach((input) => {
-      input.addEventListener("change", () => {
+    if (svg && incorrectBadge) {
+      svg.addEventListener("click", () => {
         incorrectBadge.style.visibility = "hidden";
       });
-    });
+      inputs.forEach((input) => {
+        input.addEventListener("change", () => {
+          incorrectBadge.style.visibility = "hidden";
+        });
+      });
+    }
   </script>
 </html>

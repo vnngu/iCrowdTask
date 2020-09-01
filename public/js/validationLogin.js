@@ -1,6 +1,7 @@
 let email = document.querySelector("#email");
 let password = document.querySelector("#password");
-
+let saveSession = document.querySelector("#save");
+let googleButton = document.querySelector("#google-button");
 function validate(event) {
   // event.preventDefault();
   let submittedEmail = email.value.trim();
@@ -18,5 +19,6 @@ function validate(event) {
     password.focus();
     return false;
   }
+  document.cookie = "isSave=" + saveSession.checked;
   return true;
 }
