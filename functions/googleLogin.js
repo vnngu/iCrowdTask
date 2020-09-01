@@ -11,7 +11,7 @@ async function authenticateGoogleUser(
     _id: profile.id,
     firstName: profile.name.givenName,
     lastName: profile.name.familyName,
-    email: "google@com.au",
+    email: profile.emails[0].value,
     password: "012345678",
     address: profile.provider,
     country: profile.provider,
@@ -32,8 +32,7 @@ function intializeGooglePasssport(passport) {
       {
         clientID: process.env.CLIENT_ID_GOOGLE,
         clientSecret: process.env.CLIENT_SECRECT_GOOGLE,
-        callbackURL: "https://icrowdtask.herokuapp.com/auth/google/callback",
-        proxy: true,
+        callbackURL: "/auth/google/callback",
       },
       authenticateGoogleUser
     )
