@@ -32,7 +32,7 @@ function intializeGooglePasssport(passport) {
       {
         clientID: process.env.CLIENT_ID_GOOGLE,
         clientSecret: process.env.CLIENT_SECRECT_GOOGLE,
-        callbackURL: "/auth/google/callback",
+        callbackURL: "http://icrowdtask.herokuapp.com/auth/google/callback",
       },
       authenticateGoogleUser
     )
