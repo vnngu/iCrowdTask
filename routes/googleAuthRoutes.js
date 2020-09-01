@@ -9,10 +9,7 @@ router.get(
   "/auth/google",
   isUserNotAuthenticated,
   passport.authenticate("google", {
-    scope: [
-      "https://www.googleapis.com/auth/userinfo.profile",
-      "https://www.googleapis.com/auth/userinfo.email",
-    ],
+    scope: ["profile", "email"],
   }),
   googleAuthController.google_auth
 );
