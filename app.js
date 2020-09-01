@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const path = require("path");
 const PORT = process.env.PORT || 3000;
 const authRoutes = require("./routes/authRoutes");
 const workerRoutes = require("./routes/workerRoutes");
@@ -13,6 +12,7 @@ const initializedGooglePassport = require("./functions/googleLogin");
 const flash = require("express-flash");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const path = require("path");
 const { isUserAuthenticated } = require("./functions/checkAuthentication");
 initailizePassport(passport);
 initializedGooglePassport(passport);
@@ -38,7 +38,7 @@ mongoose
   .catch((err) => console.log(err));
 
 // Middleware and Static Files
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
