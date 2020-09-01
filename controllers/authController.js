@@ -44,7 +44,7 @@ const signup_post = (req, res) => {
 };
 // Login In
 const login_get = (req, res) => {
-  res.cookie("isSave", "false", { httpOnly: true });
+  res.cookie("isSave", "false", { httpOnly: true, maxAge: 3600 * 1000 });
   res.render("reqlogin", { message: null });
 };
 const login_post = (req, res) => {

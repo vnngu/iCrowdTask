@@ -14,6 +14,7 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const { isUserAuthenticated } = require("./functions/checkAuthentication");
+const { strict } = require("assert");
 initailizePassport(passport);
 initializedGooglePassport(passport);
 
@@ -38,7 +39,7 @@ mongoose
   .catch((err) => console.log(err));
 
 // Middleware and Static Files
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
