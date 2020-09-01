@@ -44,6 +44,7 @@ const signup_post = (req, res) => {
 };
 // Login In
 const login_get = (req, res) => {
+  res.cookie("isSave", "false", { httpOnly: true });
   res.render("reqlogin", { message: null });
 };
 const login_post = (req, res) => {

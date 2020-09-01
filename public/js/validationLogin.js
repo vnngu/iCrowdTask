@@ -19,6 +19,5 @@ function validate(event) {
     password.focus();
     return false;
   }
-  document.cookie = "isSave=" + saveSession.checked;
   return true;
 }
