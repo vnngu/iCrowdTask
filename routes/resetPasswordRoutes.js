@@ -15,12 +15,12 @@ router.post(
 );
 router.get(
   "/reset-password/:token",
-  isUserNotAuthenticated
+  isUserNotAuthenticated,
   resetPasswordController.get_reset_password
 );
 router.post(
   "/reset-password/:token",
-  isUserNotAuthenticated
+  isUserNotAuthenticated,
   resetPasswordController.post_reset_password
 );
 
