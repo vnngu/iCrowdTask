@@ -13,6 +13,13 @@ router.get("/login", isUserNotAuthenticated, authController.login_get);
 router.post(
   "/login",
   isUserNotAuthenticated,
+  (req, res, next) => {
+    const { save } = req.body;
+    if (save === "on") {
+      res.cookie("isSave", "true", { httpOnly: true, maxAge: 3600 * 1000 });
+    }
+    next();
+  },
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/login",

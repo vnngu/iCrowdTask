@@ -44,12 +44,13 @@ const signup_post = (req, res) => {
 };
 // Login In
 const login_get = (req, res) => {
-  res.cookie("isSave", "false", { httpOnly: true, maxAge: 3600 * 1000 });
+  if (!req.cookies.isSave) {
+    res.cookie("isSave", "false", { httpOnly: true, maxAge: 3600 * 1000 });
+  }
   res.render("reqlogin", { message: null });
 };
 const login_post = (req, res) => {
-  const { password, email } = req.body;
-  let success = false;
+  const { password, email, save } = req.body;
   reHashPassword(password, res, email)
     .then((status) => {
       if (status.success) {
@@ -67,6 +68,7 @@ const login_post = (req, res) => {
 
 const log_out_get = (req, res) => {
   req.logout();
+  res.cookie("isSave", "false", { httpOnly: true, maxAge: 3600 * 1000 });
   res.redirect("/login");
 };
 
