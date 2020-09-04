@@ -43,6 +43,8 @@ const UserSchema = mongoose.Schema({
   },
   zipCode: String,
   phoneNumber: String,
+  recoverPasswordToken: String,
+  recoverTokenExpirationDate: Date,
 });
 
 UserSchema.pre("save", async function (next) {

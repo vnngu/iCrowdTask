@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 3000;
 const authRoutes = require("./routes/authRoutes");
 const workerRoutes = require("./routes/workerRoutes");
 const googleAuthRoutes = require("./routes/googleAuthRoutes");
+const resetPasswordRoutes = require("./routes/resetPasswordRoutes");
 const passport = require("passport");
 const initailizePassport = require("./functions/passportConfig");
 const initializedGooglePassport = require("./functions/googleLogin");
@@ -72,6 +73,9 @@ app.get("/", isUserAuthenticated, (req, res) => {
 app.use(authRoutes);
 // Google Auth
 app.use(googleAuthRoutes);
+
+// Reset Password Routes
+app.use("/recovery", resetPasswordRoutes);
 
 // Worker Routes
 app.use("/workers", workerRoutes);

@@ -6,12 +6,7 @@
       <div class="form-name">
         <h2>iCrowdTask Login</h2>
       </div>
-      <form
-        class="form-body"
-        method="POST"
-        action="/login"
-        onsubmit="return(validate(event))"
-      >
+      <form class="form-body" method="POST" action="/login">
         <% if(messages.error) { %>
         <div class="incorrect">
           <div class="message"><%= messages.error %></div>
@@ -40,7 +35,7 @@
             <label for="save">Save password</label>
           </div>
           <div class="forgot">
-            <a href="/login">Forgot?</a>
+            <a href="/recovery/forgot">Forgot?</a>
           </div>
         </div>
         <div class="submit">
@@ -80,20 +75,16 @@
       </div>
     </div>
   </body>
-  <script src="/js/validator.min.js"></script>
-  <script src="/js/validationLogin.js"></script>
   <script>
     let svg = document.querySelector(".login svg");
     let incorrectBadge = document.querySelector(".login .incorrect");
+    let email = document.querySelector("#email");
 
     if (svg && incorrectBadge) {
       svg.addEventListener("click", () => {
         incorrectBadge.remove();
       });
       email.addEventListener("change", () => {
-        incorrectBadge.remove();
-      });
-      password.addEventListener("change", () => {
         incorrectBadge.remove();
       });
     }
